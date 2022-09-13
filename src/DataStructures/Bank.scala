@@ -9,9 +9,9 @@ class Bank(name: String, location: String, list: Option[Array[Account]] = None) 
   }
 
   def list_neg_balanced(): Array[Account] = {
-    val new_list = Array[Account]()
-    account_list.foreach((acc) => {
-      if (acc.balance < 0) new_list :+ acc
+    var new_list = Array[Account]()
+    account_list.foreach(acc => {
+      if (acc.balance < 0) new_list :+= acc
     })
 
     println(new_list.mkString("Negative Accounts [", ", ", "]"))
@@ -21,7 +21,7 @@ class Bank(name: String, location: String, list: Option[Array[Account]] = None) 
   def sum(): Double = {
     var sum: Double = 0
 
-    account_list.foreach((acc) => {
+    account_list.foreach(acc => {
       sum += acc.balance
     })
 
@@ -31,10 +31,9 @@ class Bank(name: String, location: String, list: Option[Array[Account]] = None) 
   def calc_final_balance(): Double = {
     var sum: Double = 0
 
-    account_list.foreach((acc) => {
+    account_list.foreach(acc => {
       // Adding the interest
-      if (acc.balance > 0) acc.deposit(acc.balance * .05)
-      else acc.deposit(acc.balance * .1)
+      acc.set_interest()
 
       // calculate the sum
       sum += acc.balance

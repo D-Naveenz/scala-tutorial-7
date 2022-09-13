@@ -9,13 +9,14 @@ class Account(val n: String, var bal: Double) {
   def name: String = n
   def balance: Double = bal
 
-  def deposit(value: Double): Unit = {
-    this.bal += value
-  }
+  def deposit(value: Double): Unit = this.bal += value
 
-  def withdrawal(value: Double): Unit = {
-    this.bal -= value
+  def withdrawal(value: Double): Unit = this.bal -= value
+
+  def set_interest(): Unit = {
+    if (balance > 0) deposit(balance * .05) else deposit(balance * .1)
   }
+  // Getters & Setters
 
   def transfer(account: Account, balance: Double): Unit = {
     if (this.balance < balance) println("Error: Not enough balance!")
